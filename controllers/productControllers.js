@@ -1,11 +1,11 @@
 const {
-  getAllProducts_S,
-  getProductById_S,
+  getAllProductsService,
+  getProductByIdService,
 } = require('../services/productServices');
 
-const getAllProducts_C = async (_req, res) => {
+const getAllProductsController = async (_req, res) => {
   try {
-    const product = await getAllProducts_S();
+    const product = await getAllProductsService();
     if (!product) {
       res.status(404).json({
         message: 'Product not found',
@@ -17,10 +17,10 @@ const getAllProducts_C = async (_req, res) => {
   }
 };
 
-const getProductById_C = async (req, res) => {
+const getProductByIdController = async (req, res) => {
   const { id } = req.params;
   try {
-    const product = await getProductById_S(id);
+    const product = await getProductByIdService(id);
     if (!product || product.length === 0) {
       return res.status(404).json({
         message: 'Product not found',
@@ -33,6 +33,6 @@ const getProductById_C = async (req, res) => {
 };
 
 module.exports = {
-  getAllProducts_C,
-  getProductById_C,
+  getAllProductsController,
+  getProductByIdController,
 };

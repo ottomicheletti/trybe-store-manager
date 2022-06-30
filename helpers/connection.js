@@ -12,5 +12,4 @@ const connection = mysql.createPool({
   waitForConnections: true,
 });
 
-
 module.exports = connection;

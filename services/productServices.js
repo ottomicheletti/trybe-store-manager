@@ -1,21 +1,21 @@
 const {
-  getAllProducts_M,
-  getProductById_M,
+  getAllProductsModel,
+  getProductByIdModel,
 } = require('../models/productModels');
 
-const getAllProducts_S = async () => {
-  const [products] = await getAllProducts_M();
+const getAllProductsService = async () => {
+  const [products] = await getAllProductsModel();
   if (!products) return [];
   return products;
 };
 
-const getProductById_S = async (id) => {
-  const [product] = await getProductById_M(id);
+const getProductByIdService = async (id) => {
+  const [product] = await getProductByIdModel(id);
   if (!product) return [];
   return product;
 };
 
 module.exports = {
-  getAllProducts_S,
-  getProductById_S,
+  getAllProductsService,
+  getProductByIdService,
 };
