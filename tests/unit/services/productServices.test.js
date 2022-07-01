@@ -7,11 +7,11 @@ const {
   getProductByIdService,
   insertNewProductService,
   updateProductNameService,
-  // deleteProductService,
+  deleteProductService,
   // queryProductService,
 } = require('../../../services/productServices');
 
-const productMock = [
+const productsDB = [
   {
     id: 1,
     name: 'Martelo de Thor',
@@ -28,7 +28,7 @@ const productMock = [
 
 describe('Testa o retorno de funções da camada SERVICES relacionadas aos endpoints /products e /products/:id', () => {
   before(async () => {
-    sinon.stub(connection, 'execute').returns(productMock);
+    sinon.stub(connection, 'execute').returns(productsDB);
   });
 
   after(async () => {
@@ -42,7 +42,7 @@ describe('Testa o retorno de funções da camada SERVICES relacionadas aos endpo
 
   it('Função getProductByIdService(1)', async () => {
     const response = await getProductByIdService(1);
-    expect(response).to.have.a.property('name');
+    expect(response).to.have.all.keys('name', 'id');
   });
 
   it('Função insertNewProductService("Xablau")', async () => {
@@ -53,6 +53,11 @@ describe('Testa o retorno de funções da camada SERVICES relacionadas aos endpo
 
   it('Função updateProductNameService(1, "Xablau")', async () => {
     const response = await updateProductNameService(1,'Xablau');
+    expect(response).to.be.a('object');
+  });
+
+  it('Função deleteProductService(1)', async () => {
+    const [response] = await deleteProductService(2);
     expect(response).to.be.a('object');
   });
 });

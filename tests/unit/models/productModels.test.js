@@ -6,9 +6,10 @@ const {
   getProductByIdModel,
   insertNewProductModel,
   updateProductNameModel,
+  deleteProductModel,
 } = require('../../../models/productModels');
 
-const productMock = [
+const productsDB = [
   {
     id: 1,
     name: 'Martelo de Thor',
@@ -25,7 +26,7 @@ const productMock = [
 
 describe('Testa o retorno de funções da camada MODEL relacionadas aos endpoints /products e /products/:id', () => {
   before(async () => {
-    sinon.stub(connection, 'execute').returns(productMock);
+    sinon.stub(connection, 'execute').returns(productsDB);
   });
 
   after(async () => {
@@ -54,6 +55,11 @@ describe('Testa o retorno de funções da camada MODEL relacionadas aos endpoint
 
   it('Função updateProductNameModel(1, "Xablau")', async () => {
     const response = await updateProductNameModel(1,'Xablau');
+    expect(response).to.be.a('object');
+  });
+
+  it('Função deleteProductModel(1)', async () => {
+    const [response] = await deleteProductModel(2);
     expect(response).to.be.a('object');
   });
 });

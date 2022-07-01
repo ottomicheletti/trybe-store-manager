@@ -25,7 +25,7 @@ const getAllProductsController = async (_req, res) => {
 const getProductByIdController = async (req, res) => {
   const { id } = req.params;
   const { q } = req.query;
-  const product = await getProductByIdService(id);
+  const [product] = await getProductByIdService(id);
   const [queriedProduct] = await queryProductService(q);
   const [products] = await getAllProductsModel();
 

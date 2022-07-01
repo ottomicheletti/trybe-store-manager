@@ -14,7 +14,7 @@ const getAllProductsService = async () => {
 };
 
 const getProductByIdService = async (id) => {
-  const [data] = await getProductByIdModel(id);
+  const data = await getProductByIdModel(id);
   if (!data) return [];
   return data;
 };
