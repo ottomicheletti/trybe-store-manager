@@ -3,6 +3,7 @@ const {
   getProductByIdModel,
   insertNewProductModel,
   updateProductNameModel,
+  deleteProductModel,
 } = require('../models/productModels');
 
 const getAllProductsService = async () => {
@@ -27,9 +28,15 @@ const updateProductNameService = async (id, name) => {
   return data;
 };
 
+const deleteProductService = async (id) => {
+  const data = await deleteProductModel(id);
+  return data;
+};
+
 module.exports = {
   getAllProductsService,
   getProductByIdService,
   insertNewProductService,
   updateProductNameService,
+  deleteProductService,
 };
