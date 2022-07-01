@@ -1,3 +1,5 @@
+const { getProductByIdModel } = require('../models/productModels');
+
 const validateProductName = (req, res, next) => {
   const { name } = req.body;
   switch (true) {
@@ -12,4 +14,17 @@ const validateProductName = (req, res, next) => {
   }
 };
 
-module.exports = { validateProductName };
+const validateProductId = async (req, res, next) => {
+  const { id } = req.params;
+  const [searchedId] = await getProductByIdModel(id);
+
+  switch (true) {
+    case searchedId === undefined:
+      return res.status(404).json({
+        message: 'Product not found' });
+    default:
+      next();
+  }
+};
+
+module.exports = { validateProductName, validateProductId };

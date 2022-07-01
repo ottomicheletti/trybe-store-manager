@@ -2,27 +2,34 @@ const {
   getAllProductsModel,
   getProductByIdModel,
   insertNewProductModel,
+  updateProductNameModel,
 } = require('../models/productModels');
 
 const getAllProductsService = async () => {
-  const [products] = await getAllProductsModel();
-  if (!products) return [];
-  return products;
+  const [data] = await getAllProductsModel();
+  if (!data) return [];
+  return data;
 };
 
 const getProductByIdService = async (id) => {
-  const [product] = await getProductByIdModel(id);
-  if (!product) return [];
-  return product;
+  const [data] = await getProductByIdModel(id);
+  if (!data) return [];
+  return data;
 };
 
 const insertNewProductService = async (newProduct) => {
-  const product = await insertNewProductModel(newProduct);
-  return product;
+  const data = await insertNewProductModel(newProduct);
+  return data;
+};
+
+const updateProductNameService = async (id, name) => {
+  const data = await updateProductNameModel(id, name);
+  return data;
 };
 
 module.exports = {
   getAllProductsService,
   getProductByIdService,
   insertNewProductService,
+  updateProductNameService,
 };
