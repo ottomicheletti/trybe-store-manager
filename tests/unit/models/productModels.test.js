@@ -24,7 +24,6 @@ const productMock = [
 ];
 
 describe('Testa o retorno de funções da camada MODEL relacionadas aos endpoints /products e /products/:id', () => {
-
   before(async () => {
     sinon.stub(connection, 'execute').returns(productMock);
   });
@@ -33,27 +32,27 @@ describe('Testa o retorno de funções da camada MODEL relacionadas aos endpoint
     connection.execute.restore();
   });
 
-  it('Função getAllProductsModel', async () => {
+  it('Função getAllProductsModel()', async () => {
     const response = await getAllProductsModel();
     expect(response).to.be.a('object');
     expect(response).to.have.a.property('name');
     expect(response).to.have.a.property('id');
   });
 
-  it('Função getProductByIdModel', async () => {
+  it('Função getProductByIdModel(1)', async () => {
     const response = await getProductByIdModel(1);
     expect(response).to.be.a('object');
     expect(response).to.have.a.property('name');
     expect(response).to.have.a.property('id');
   });
 
-  it('Função insertNewProductModel', async () => {
+  it('Função insertNewProductModel("Xablau")', async () => {
     const response = await insertNewProductModel('Xablau');
     expect(response).to.be.a('object');
     expect(response).to.have.a.property('name').to.be.equal('Xablau');
   });
 
-  it('Função updateProductNameModel', async () => {
+  it('Função updateProductNameModel(1, "Xablau")', async () => {
     const response = await updateProductNameModel(1,'Xablau');
     expect(response).to.be.a('object');
   });
