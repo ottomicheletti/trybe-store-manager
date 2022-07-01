@@ -8,7 +8,7 @@ const {
 } = require('../models/productModels');
 
 const getAllProductsService = async () => {
-  const [data] = await getAllProductsModel();
+  const data = await getAllProductsModel();
   if (!data) return [];
   return data;
 };
