@@ -4,17 +4,19 @@ const {
   insertNewProductService,
   updateProductNameService,
   deleteProductService,
+  queryProductService,
 } = require('../services/productServices');
+const { getAllProductsModel } = require('../models/productModels');
 
 const getAllProductsController = async (_req, res) => {
   try {
-    const product = await getAllProductsService();
-    if (!product) {
+    const products = await getAllProductsService();
+    if (!products) {
       res.status(404).json({
         message: 'Product not found',
       });
     }
-    return res.status(200).json(product);
+    return res.status(200).json(products);
   } catch (err) {
     console.log(err);
   }
@@ -22,16 +24,23 @@ const getAllProductsController = async (_req, res) => {
 
 const getProductByIdController = async (req, res) => {
   const { id } = req.params;
-  try {
-    const product = await getProductByIdService(id);
-    if (!product || product.length === 0) {
+  const { q } = req.query;
+  const product = await getProductByIdService(id);
+  const [queriedProduct] = await queryProductService(q);
+  const [products] = await getAllProductsModel();
+
+  switch (true) {
+    case id === 'search':
+      if (queriedProduct.length === 0) {
+        return res.status(200).json(products);
+      }
+      return res.status(200).json(queriedProduct);
+    case !product || product.length === 0:
       return res.status(404).json({
         message: 'Product not found',
       });
-    }
-    return res.status(200).json(product);
-  } catch (err) {
-    console.log(err);
+    default:
+      return res.status(200).json(product);
   }
 };
 

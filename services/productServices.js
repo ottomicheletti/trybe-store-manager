@@ -4,6 +4,7 @@ const {
   insertNewProductModel,
   updateProductNameModel,
   deleteProductModel,
+  queryProductModel,
 } = require('../models/productModels');
 
 const getAllProductsService = async () => {
@@ -33,10 +34,16 @@ const deleteProductService = async (id) => {
   return data;
 };
 
+const queryProductService = async (q) => {
+  const data = await queryProductModel(q);
+  return data;
+};
+
 module.exports = {
   getAllProductsService,
   getProductByIdService,
   insertNewProductService,
   updateProductNameService,
   deleteProductService,
+  queryProductService,
 };

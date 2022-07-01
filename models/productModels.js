@@ -40,10 +40,17 @@ const deleteProductModel = async (id) => {
   return query;
 };
 
+const queryProductModel = async (q) => {
+  const query = await connection
+    .execute(`SELECT * FROM StoreManager.products WHERE name LIKE "%${q}%"`);
+  return query;
+};
+
 module.exports = {
   getAllProductsModel,
   getProductByIdModel,
   insertNewProductModel,
   updateProductNameModel,
   deleteProductModel,
+  queryProductModel,
 };

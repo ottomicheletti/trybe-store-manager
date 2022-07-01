@@ -11,8 +11,8 @@ const {
 const { validateProductName, validateProductId } = require('../middlewares/productValidations');
 
 router.get('/products', getAllProductsController);
-router.post('/products', validateProductName, insertNewProductController);
 router.get('/products/:id', getProductByIdController);
+router.post('/products', validateProductName, insertNewProductController);
 router.put('/products/:id', validateProductName, validateProductId, updateProductNameController);
 router.delete('/products/:id', validateProductId, deleteProductController);
 
