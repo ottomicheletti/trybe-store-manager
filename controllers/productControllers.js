@@ -47,22 +47,14 @@ const insertNewProductController = async (req, res) => {
 const updateProductNameController = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  try {
-    await updateProductNameService(id, name);
-    return res.status(200).json({ id, name });
-  } catch (err) {
-    console.error(err);
-  }
+  await updateProductNameService(id, name);
+  return res.status(200).json({ id, name });
 };
 
 const deleteProductController = async (req, res) => {
   const { id } = req.params;
-  try {
-    await deleteProductService(id);
-    return res.status(204).end();
-  } catch (err) {
-    console.log(err);
-  }
+  await deleteProductService(id);
+  return res.status(204).end();
 };
 
 module.exports = {

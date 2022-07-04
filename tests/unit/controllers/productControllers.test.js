@@ -22,13 +22,18 @@ const productsDB = [
 ];
 
 describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos endpoints /products e /products/:id', () => {
-
+  beforeEach(sinon.restore);
 
   describe('Função getAllProductsController()', () => {
-    beforeEach(sinon.restore);
-    it('Deve retornar o STATUS 200 quando a chamada for resolvida', async () => {
-
+    beforeEach(() => {
       sinon.stub(service, 'getAllProductsService').resolves();
+    });
+
+    afterEach(() => {
+      service.getAllProductsService.restore();
+    });
+
+    it('Deve retornar o STATUS 200 quando a chamada for resolvida', async () => {
 
       const res = {
         status: sinon.stub().callsFake( () => res),
@@ -39,22 +44,7 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
       chai.expect(res.status.getCall(0).args[0]).to.equal(200);
     });
 
-    // it('Deve retornar o STATUS 404 quando a chamada for rejeitada', async () => {
-
-    //   sinon.stub(service, 'getAllProductsService').rejects();
-
-    //   const res = {
-    //     status: sinon.stub().callsFake( () => res),
-    //     json: sinon.stub().returns(),
-    //   };
-
-    //   await controller.getAllProductsController({}, res);
-    //   chai.expect(res.status.getCall(0).args[0]).to.equal(404);
-    // });
-
     it('O json da response deve retornar com todos os produtos', async () => {
-
-      sinon.stub(service, 'getAllProductsService').resolves();
 
       const res = {
         status: sinon.stub().callsFake( () => res),
@@ -67,10 +57,15 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
   });
 
   describe('Função getProductsByIdController(1)', () => {
-    beforeEach(sinon.restore);
-    it('Deve retornar o STATUS 200 quando a chamada for resolvida', async () => {
-
+    beforeEach(() => {
       sinon.stub(service, 'getProductByIdService').resolves();
+    });
+
+    afterEach(() => {
+      service.getProductByIdService.restore();
+    });
+
+    it('Deve retornar o STATUS 200 quando a chamada for resolvida', async () => {
 
       const res = {
         status: sinon.stub().callsFake( () => res),
@@ -92,8 +87,6 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
 
     it('Deve retornar todos os produtos quando req.query.q = " " e req.params.id = search', async () => {
 
-      sinon.stub(service, 'getProductByIdService').resolves();
-
       const res = {
         status: sinon.stub().callsFake( () => res),
         json: sinon.stub().returns(productsDB),
@@ -113,8 +106,6 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
     });
 
     it('Deve retornar um produto específico quando req.query.q = Martelo e req.params.id = search', async () => {
-
-      sinon.stub(service, 'getProductByIdService').resolves();
 
       const res = {
         status: sinon.stub().callsFake( () => res),
@@ -136,8 +127,6 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
 
     it('Deve retornar o STATUS 404 quando buscar um produto com id = 999', async () => {
 
-      sinon.stub(service, 'getProductByIdService').resolves();
-
       const res = {
         status: sinon.stub().callsFake( () => res),
         json: sinon.stub().returns(),
@@ -158,10 +147,15 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
   });
 
   describe('Função insertNewProductController()', () => {
-    beforeEach(sinon.restore);
-    it('Deve retornar o STATUS 201 quando inserir um novo produto', async () => {
-
+    beforeEach(() => {
       sinon.stub(service, 'insertNewProductService').resolves();
+    });
+
+    afterEach(() => {
+      service.insertNewProductService.restore();
+    });
+
+    it('Deve retornar o STATUS 201 quando inserir um novo produto', async () => {
 
       const res = {
         status: sinon.stub().callsFake( () => res),
@@ -179,8 +173,6 @@ describe('Testa o retorno de funções da camada CONTROLLER relacionadas aos end
     });
 
     it('O res.json deve conter o produto inserido quando req.body.name = "Xablito"', async () => {
-
-      sinon.stub(service, 'insertNewProductService').resolves();
 
       const res = {
         status: sinon.stub().callsFake( () => res),
