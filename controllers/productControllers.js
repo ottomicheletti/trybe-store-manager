@@ -9,17 +9,11 @@ const {
 const { getAllProductsModel } = require('../models/productModels');
 
 const getAllProductsController = async (_req, res) => {
-  try {
     const products = await getAllProductsService();
     if (!products) {
-      res.status(404).json({
-        message: 'Product not found',
-      });
+      return res.status(404).json({ message: 'Product not found' });
     }
     return res.status(200).json(products);
-  } catch (err) {
-    console.log(err);
-  }
 };
 
 const getProductByIdController = async (req, res) => {
@@ -31,7 +25,7 @@ const getProductByIdController = async (req, res) => {
 
   switch (true) {
     case id === 'search':
-      if (queriedProduct.length === 0) {
+      if (!queriedProduct) {
         return res.status(200).json(products);
       }
       return res.status(200).json(queriedProduct);
@@ -46,12 +40,8 @@ const getProductByIdController = async (req, res) => {
 
 const insertNewProductController = async (req, res) => {
   const { name } = req.body;
-  try {
-    const result = await insertNewProductService(name);
-    return res.status(201).json(result);
-  } catch (err) {
-    console.error(err);
-  }
+  const result = await insertNewProductService(name);
+  return res.status(201).json(result);
 };
 
 const updateProductNameController = async (req, res) => {
